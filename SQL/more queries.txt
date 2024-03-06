@@ -1,0 +1,29 @@
+drop table Elections;
+create table Elections(candidateid number,voterid number,votedate date, primary key(candidateid,voterid));
+insert into elections values(1,11,'03-MAR-2024');
+insert into elections values(2,12,'03-MAR-2024');
+insert into elections values(3,13,'03-MAR-2024');
+insert into elections values(4,14,'03-MAR-2024');
+insert into elections values(12,12,'03-MAR-2024');
+insert into elections values(13,13,'03-MAR-2024');
+insert into elections values(14,14,'03-MAR-2024');
+
+
+insert into elections values(5,15,'03-FEB-2024');
+insert into elections values(6,16,'03-FEB-2024');
+insert into elections values(7,17,'03-FEB-2024');
+insert into elections values(8,18,'03-FEB-2024');
+insert into elections values(9,19,'03-FEB-2024');
+insert into elections values(10,10,'03-FEB-2024');
+insert into elections values(15,15,'03-FEB-2024');
+
+insert into elections values(1,21,'03-MAR-2024');
+insert into elections values(2,22,'03-MAR-2024');
+
+select * from Elections;
+COMMIT;
+
+select month,max(votes) from
+(select to_char(votedate,'mon') as month,elections.candidateid
+,COUNT(candidateid) as votes from elections  group by  to_char(votedate,'mon'),candidateid)
+GROUP BY  month;
